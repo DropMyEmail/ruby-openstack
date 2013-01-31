@@ -334,7 +334,12 @@ end
 class AuthV10
 
   def initialize(connection)
-    hdrhash = { "X-Auth-User" => connection.authuser, "X-Auth-Key" => connection.authkey }
+    hdrhash = if connection.service_type == 'object-store'
+                { "X-Storage-User" => "#{connection.authtenant[:value]}:#{connection.authuser}", "X-Storage-Pass" => connection.authkey }
+              else
+                { "X-Auth-User" => connection.authuser, "X-Auth-Key" => connection.authkey }
+              end
+
     begin
       server = Net::HTTP::Proxy(connection.proxy_host, connection.proxy_port).new(connection.auth_host, connection.auth_port)
       if connection.auth_scheme == "https"
@@ -487,4 +492,3 @@ class Exception
 end
 
 end
-
