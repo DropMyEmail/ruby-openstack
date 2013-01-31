@@ -1,5 +1,7 @@
 = Ruby OpenStack
 
+This fork assumes {Swauth}[https://github.com/gholt/swauth] authentication for Swift object store. The gem goes under the name *dropmyemail-openstack*.
+
 == Description
 
 Ruby Openstack Compute, Object-Store and Block Storage bindings for the OpenStack API.
